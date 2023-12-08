@@ -5,9 +5,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+
+// namedQuerry
 
 @Entity
 @Table(name = "ordem_servico")
@@ -16,19 +21,27 @@ public class OrdemServico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column()
-    private String armacao;
     
     @Column()
     private String valor;
 
-    @Column()
-    private Integer lenteId;
+    @OneToOne
+    @JoinColumn(nullable = false, updatable = false)
+    private Lente lente;
 
-    @Column()
-    private Integer grauId;
+    @ManyToOne
+    @JoinColumn(nullable = false, updatable = false)
+    private Cliente cliente;
+    
+    @OneToOne
+    @JoinColumn(nullable = false, updatable = false)
+    private Armacao armacao;
 
-    @Column()
-    private Integer statusId;
+    // @OneToOne
+    // @JoinColumn(nullable = false, updatable = false)
+    // private Grau grau;
+
+    // @OneToOne
+    // @JoinColumn(nullable = false, updatable = false)
+    // private Status status;
 }
